@@ -15,16 +15,22 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    // Role-based redirection after successful login
+    /**
+     * Xử lý điều hướng dựa trên vai trò sau khi đăng nhập thành công.
+     */
     protected function authenticated(Request $request, $user)
     {
-        if ($user->role === 'admin') {
+        // Kiểm tra quyền Admin (hỗ trợ cả giá trị số 3, 0 hoặc chuỗi 'admin')
+        if ($user->role == 3 || $user->role == 0 || $user->role === 'admin') {
             return redirect()->route('admin.dashboard');
-        } elseif ($user->role === 'doctor') {
+        } 
+        
+        // Kiểm tra quyền Bác sĩ (hỗ trợ giá trị số 2 hoặc chuỗi 'doctor')
+        if ($user->role == 2 || $user->role === 'doctor') {
             return redirect()->route('doctor.dashboard');
         } 
         
-        // Default redirect for Patient
+        // Mặc định điều hướng về khu vực Bệnh nhân (Role 1)
         return redirect()->route('patient.index'); 
     }
 }
