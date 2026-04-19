@@ -62,4 +62,16 @@ class AdminController extends Controller
         $user->save();
         return redirect()->back()->with('success', 'User account status updated!');
     }
+
+    public function manageDoctors()
+    {
+        $doctors = Doctor::with('user', 'specialty')->get();
+        return view('admin.doctors', compact('doctors')); // Cần tạo thêm view admin/doctors.blade.php nếu muốn quản lý riêng
+    }
+
+    public function destroyDoctor($id)
+    {
+        Doctor::findOrFail($id)->delete();
+        return redirect()->back()->with('success', 'Doctor deleted successfully!');
+    }
 }

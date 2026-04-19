@@ -48,7 +48,7 @@
                         @if(!Auth::check() || Auth::user()->role == 'patient' || Auth::user()->role == 1)
                             <li class="nav-item me-3">
                                 <a href="{{ route('patient.index') }}" class="btn btn-primary-dark px-4 shadow-sm">
-                                    <i class="bi bi-calendar-check me-1"></i> Đặt Lịch Khám
+                                    <i class="bi bi-calendar-check me-1"></i> Book Appointment
                                 </a>
                             </li>
                         @endif
@@ -71,15 +71,18 @@
                                 <div class="dropdown-menu dropdown-menu-end border-0 shadow-sm">
                                     @if(Auth::user()->role == 'admin' || Auth::user()->role == 0 || Auth::user()->role == 3)
                                         <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                            <i class="bi bi-shield-lock me-2"></i> Dashboard Admin
+                                            <i class="bi bi-shield-lock me-2"></i> Admin Dashboard
                                         </a>
                                     @elseif(Auth::user()->role == 'doctor' || Auth::user()->role == 2)
                                         <a class="dropdown-item" href="{{ route('doctor.dashboard') }}">
-                                            <i class="bi bi-person-badge me-2"></i> Dashboard Bác sĩ
+                                            <i class="bi bi-person-badge me-2"></i> Doctor Dashboard
                                         </a>
                                     @else
                                         <a class="dropdown-item" href="{{ route('patient.index') }}">
-                                            <i class="bi bi-person-circle me-2"></i> Dashboard Bệnh nhân
+                                            <i class="bi bi-search me-2"></i> Find a Doctor
+                                        </a>
+                                        <a class="dropdown-item" href="{{ route('patient.appointments') }}">
+                                            <i class="bi bi-calendar-check me-2"></i> My Appointments
                                         </a>
                                     @endif
 
